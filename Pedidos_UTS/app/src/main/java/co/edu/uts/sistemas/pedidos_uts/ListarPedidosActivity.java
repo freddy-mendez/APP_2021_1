@@ -1,8 +1,10 @@
 package co.edu.uts.sistemas.pedidos_uts;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,13 +47,33 @@ public class ListarPedidosActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2100);
             }
         });
-        /*lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ListarPedidosActivity.this, "Prueba", Toast.LENGTH_SHORT).show();
-                return false;
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                AlertDialog.Builder msg = new AlertDialog.Builder(ListarPedidosActivity.this);
+                msg.setTitle("Eliminar Pedido");
+                msg.setMessage("Esta seguro que desea eliminar el pedido?");
+                msg.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ListView lista = findViewById(R.id.lista_pedidos);
+                        Pedido pedido = (Pedido) lista.getItemAtPosition(pos);
+                        pedidoDAO.deletePedido(pedido.get_id());
+                        actualizarLista();
+                    }
+                });
+                msg.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                msg.show();
+
+
+                return true;
             }
-        });*/
+        });
 
         actualizarLista();
     }
