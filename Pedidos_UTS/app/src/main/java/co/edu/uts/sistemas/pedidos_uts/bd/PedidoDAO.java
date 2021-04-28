@@ -106,8 +106,96 @@ public class PedidoDAO {
                 ClienteDAO clienteDAO = new ClienteDAO(baseDatos);
                 Cliente c = clienteDAO.getCliente(id_cliente);
                 pedido.setCliente(c);
-                //pedido.setProductos(getProductosPedido());
+                pedido.setProductos(getProductosPedido(id));
         }
         return pedido;
+    }
+
+    private ArrayList<Producto> getProductosPedido(int id) {
+        SQLiteDatabase db = this.baseDatos.getReadableDatabase();
+        String sql = "select * from "+ProductoDAO.TABLE_NAME+" as p, "+TABLE_NAME_R+" as pp "+
+                "where p."+ProductoDAO._ID+"="+"pp."+ this.ID_PRODUCTO+" and "+
+                "pp."+this.ID_PEDIDO+"="+id;
+        Cursor cursor =
+                db.rawQuery(sql, null);
+        ArrayList<Producto> productos = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int _id = cursor.getInt(cursor.getColumnIndex("_id"));
+                String codigo = cursor.getString(cursor.getColumnIndex("codigo"));
+                String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
+                int precio = cursor.getInt(cursor.getColumnIndex("precio"));
+                String imagen = cursor.getString(cursor.getColumnIndex("imagen"));
+                Producto p = new Producto(_id, codigo, nombre, precio, imagen);
+                productos.add(p);
+            } while(cursor.moveToNext());
+
+        }
+        return productos;
+    }
+
+    public ArrayList<Producto> getProductosNoPedido(int id) {
+        SQLiteDatabase db = this.baseDatos.getReadableDatabase();
+        String sql = "select * from "+ProductoDAO.TABLE_NAME+" "+
+                "where "+ProductoDAO._ID+" NOT IN (select "+ this.ID_PRODUCTO+" from "+
+                TABLE_NAME_R+" where "+this.ID_PEDIDO+"="+id+")";
+        Cursor cursor =
+                db.rawQuery(sql, null);
+        ArrayList<Producto> productos = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int _id = cursor.getInt(cursor.getColumnIndex("_id"));
+                String codigo = cursor.getString(cursor.getColumnIndex("codigo"));
+                String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
+                int precio = cursor.getInt(cursor.getColumnIndex("precio"));
+                String imagen = cursor.getString(cursor.getColumnIndex("imagen"));
+                Producto p = new Producto(_id, codigo, nombre, precio, imagen);
+                productos.add(p);
+            } while(cursor.moveToNext());
+
+        }
+        return productos;
+    }
+
+
+    public void addProductoPedido(int id_pedido, int id_producto, int cantidad, int subtotal) {
+        SQLiteDatabase db = this.baseDatos.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put(ID_PEDIDO, id_pedido);
+        valores.put(ID_PRODUCTO, id_producto);
+        valores.put(CANTIDAD, cantidad);
+        valores.put(SUBTOTAL, subtotal);
+        db.insert(TABLE_NAME_R, null, valores);
+        String sql = "update "+TABLE_NAME+" set "+VALOR+" = "+VALOR+" + "+subtotal+
+                " where "+_ID+"="+id_pedido;
+        db.execSQL(sql);
+    }
+
+    public void deleteProductoPedido(int id_pedido, int id_producto) {
+        SQLiteDatabase db = this.baseDatos.getWritableDatabase();
+
+        String sql = "select subtotal  from "+PedidoDAO.TABLE_NAME_R+" "+
+                "where "+ this.ID_PEDIDO+"="+id_pedido+" and  "+
+                this.ID_PRODUCTO+"="+id_producto;
+        Cursor cursor =
+                db.rawQuery(sql, null);
+        int subtotal=0;
+        if (cursor.moveToFirst()) {
+            subtotal=cursor.getInt(cursor.getColumnIndex("subtotal"));
+        }
+
+        String where = ID_PEDIDO+"="+id_pedido+" and "+ID_PRODUCTO+"="+id_producto;
+        db.delete(TABLE_NAME_R, where, null);
+
+        sql = "update "+TABLE_NAME+" set "+VALOR+" = "+VALOR+" - "+subtotal+
+                " where "+_ID+"="+id_pedido;
+        db.execSQL(sql);
+    }
+
+
+    public void deletePedido(int id) {
+        SQLiteDatabase db = this.baseDatos.getWritableDatabase();
+        db.delete(TABLE_NAME_R, ID_PEDIDO+"=?", new String[]{""+id});
+        db.delete(TABLE_NAME, _ID+"=?", new String[]{""+id});
     }
 }
