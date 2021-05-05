@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Taller_4_SQLite_M_M"
