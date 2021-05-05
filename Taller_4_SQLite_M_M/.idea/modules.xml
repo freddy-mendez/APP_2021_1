@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Taller_4_SQLite_M_M.iml" filepath="$PROJECT_DIR$/.idea/modules/Taller_4_SQLite_M_M.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Taller_4_SQLite_M_M.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Taller_4_SQLite_M_M.app.iml" />
+    </modules>
+  </component>
+</project>

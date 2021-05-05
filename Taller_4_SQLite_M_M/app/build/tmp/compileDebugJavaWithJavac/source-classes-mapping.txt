@@ -1,0 +1,25 @@
+co/edu/uts/sistemas/taller_4_sqlite_m_m/db/ClienteDAO.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.db.ClienteDAO
+co/edu/uts/sistemas/taller_4_sqlite_m_m/BuildConfig.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.BuildConfig
+co/edu/uts/sistemas/taller_4_sqlite_m_m/db/BaseDatos.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.db.BaseDatos
+co/edu/uts/sistemas/taller_4_sqlite_m_m/db/GrupoDAO.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.db.GrupoDAO
+co/edu/uts/sistemas/taller_4_sqlite_m_m/modelo/Grupo.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.modelo.Grupo
+co/edu/uts/sistemas/taller_4_sqlite_m_m/MainActivity.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.MainActivity
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.MainActivity$1
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.MainActivity$2
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.MainActivity$2$1
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.MainActivity$2$2
+co/edu/uts/sistemas/taller_4_sqlite_m_m/modelo/Cliente.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.modelo.Cliente
+co/edu/uts/sistemas/taller_4_sqlite_m_m/CrearGrupoActivity.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.CrearGrupoActivity
+co/edu/uts/sistemas/taller_4_sqlite_m_m/ListaClientesActivity.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.ListaClientesActivity
+co/edu/uts/sistemas/taller_4_sqlite_m_m/VerDetalleGrupoActivity.java
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.VerDetalleGrupoActivity
+ co.edu.uts.sistemas.taller_4_sqlite_m_m.VerDetalleGrupoActivity$1
